@@ -43,6 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Get all lists of current user.
+     */
     public function todoLists()
     {
         return $this->hasMany(TodoList::class);

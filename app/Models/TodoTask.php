@@ -21,6 +21,9 @@ class TodoTask extends Model
         'todo_list_id'
     ];
 
+    /**
+     * Get the TodoList that has the task.
+     */
     public function todoList()
     {
         return $this->belongsTo(TodoList::class);

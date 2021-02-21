@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\TodoList;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\TodoList;
+use App\Models\User;
 
 class TodoListFactory extends Factory
 {
@@ -23,7 +24,7 @@ class TodoListFactory extends Factory
     {
         return [
             'title' => $this->faker->unique()->name,
-            'user_id' => 1,
+            'user_id' => User::factory()
         ];
     }
 }

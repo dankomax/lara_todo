@@ -12,42 +12,21 @@ use App\Models\TodoList;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created task in db.
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * @param  \Illuminate\Http\Request $request
+     * @param  TodoList $list
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, TodoList $list)
     {
 
-        // dd($list->id);
-        $validated = $request->validate([
+        $request->validate([
             'title' => 'required|unique:todo_lists|min:3|max:255'
         ]);
-
-
-
 
         $newList = new TodoTask([
             'title' => $request->title,
@@ -59,30 +38,9 @@ class TaskController extends Controller
         return redirect(route('list.show', $list->id));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the specified task in db.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -90,17 +48,31 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $task = TodoTask::with('todoList')->findOrFail($id);
+
+        if (auth()->user()->id == $task->todoList->user_id) {
+            $task->update([
+                'is_done' => $request->is_done
+            ]);
+        }
+
+        return back();
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified task from db.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+        $task = TodoTask::with('todoList')->findOrFail($id);
 
+        if (auth()->user()->id == $task->todoList->user_id) {
+            $task->delete();
+        }
+
+        return back();
     }
 }

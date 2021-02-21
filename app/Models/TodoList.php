@@ -21,11 +21,18 @@ class TodoList extends Model
         'user_id'
     ];
 
+
+    /**
+     * Get the user that owns the TodoList.
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Get the tasks for the TodoList.
+     */
     public function todoTasks()
     {
         return $this->hasMany(TodoTask::class);

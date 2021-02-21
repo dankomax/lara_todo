@@ -33,24 +33,24 @@
                                 <button type="submit" class="btn btn-primary mb-2">Create</button>
                             </div>
                         </div>
-
                     </form>
 
+                    <ul class="list-group">
                         @foreach ($todoLists as $list)
-
-
-                                <div class="d-flex justify-content-betweenmb-1">
-
-                                    <a href="{{ route('list.show', $list->id) }}" class="list-group-item list-group-item-action rounded mr-1">{{ $list->title }}</a>
-                                    <form action="{{ route('list.destroy', $list->id) }}" method="post" class="form">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-lg btn-danger">&times;</button>
-                                    </form>
-                                </div>
-
+                            <li class="d-flex justify-content-between mb-1">
+                                <a href="{{ route('list.show', $list->id) }}" class="list-group-item list-group-item-action rounded mr-1">{{ $list->title }}</a>
+                                <form action="{{ route('list.destroy', $list->id) }}" method="post" class="form">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-lg btn-danger">&times;</button>
+                                </form>
+                            </li>
                         @endforeach
+                    </ul>
 
+                    <div class="mt-4">
+                        {{ $todoLists->links() }}
+                    </div>
                 </div>
             </div>
         </div>

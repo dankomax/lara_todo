@@ -26,7 +26,7 @@ class TodoTaskFactory extends Factory
     {
         return [
             'title' => $this->faker->unique()->name,
-            'is_done' => 1,
+            'is_done' => 0,
             'todo_list_id'=> TodoList::factory()
         ];
     }

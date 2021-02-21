@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    Tasks
+                    <p>Tasks from "{{ $list->title }}" list</p>
                     <a href="{{ route('list.index') }}">Back to Lists</a>
                 </div>
 
@@ -32,13 +32,37 @@
                                 <button type="submit" class="btn btn-primary mb-2">Create</button>
                             </div>
                         </div>
-
                     </form>
 
-                    <p>{{ $list->title }}</p>
-                    @foreach ($list->todoTasks as $task)
-                        <p>{{ $task->title }}</p>
-                    @endforeach
+                    <ul class="list-group">
+                        @foreach ($tasks as $task)
+                            <div class="d-flex justify-content-between mb-1">
+                                <div class="list-group-item list-group-item-action rounded mr-1">
+                                    @if ($task->is_done)
+                                        <del>{{ $task->title }}</del>
+                                    @else
+                                        {{ $task->title }}
+                                    @endif
+                                </div>
+
+                                <form action="{{ route('task.update', $task->id) }}" method="post" class="form mr-1">
+                                    @csrf
+                                    @method('patch')
+                                    <input name="is_done" value="{{ $task->is_done ? '0' : '1' }}" hidden>
+                                    <button type="submit" class="btn btn-lg btn-success">&#10003;</button>
+                                </form>
+                                <form action="{{ route('task.destroy', $task->id) }}" method="post" class="form">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-lg btn-danger">&times;</button>
+                                </form>
+                            </div>
+                        @endforeach
+                    </ul>
+
+                    <div class="mt-4">
+                        {{ $tasks->links() }}
+                    </div>
                 </div>
             </div>
         </div>
