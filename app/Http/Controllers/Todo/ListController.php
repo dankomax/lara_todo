@@ -67,7 +67,7 @@ class ListController extends Controller
     public function show(TodoList $list, Request $request)
     {
         if (auth()->user()->id == $list->user_id) {
-            $tasks = TodoTask::where('todo_list_id', $list->id)->orderBy('created_at', 'desc')->paginate(5);
+            $tasks = TodoTask::where('todo_list_id', $list->id)->orderBy('position', 'desc')->paginate(5);
 
             // redirect to last available page of list, if there is no tasks on requested page
             if($request->page > $tasks->lastPage()) {

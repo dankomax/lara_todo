@@ -25,8 +25,9 @@ class TodoTaskFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->unique()->name,
+            'title' => $this->faker->unique()->sentence(4),
             'is_done' => 0,
+            'position' => $this->faker->numberBetween(0, 20),
             'todo_list_id'=> TodoList::factory()
         ];
     }

@@ -23,7 +23,7 @@ class TodoListFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->unique()->name,
+            'title' => $this->faker->unique()->sentence(3),
             'user_id' => User::factory()
         ];
     }

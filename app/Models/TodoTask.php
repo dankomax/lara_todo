@@ -18,7 +18,8 @@ class TodoTask extends Model
     protected $fillable = [
         'title',
         'is_done',
-        'todo_list_id'
+        'todo_list_id',
+        'position'
     ];
 
     /**

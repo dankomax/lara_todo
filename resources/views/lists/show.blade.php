@@ -15,6 +15,10 @@
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
+                    @elseif (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
                     @endif
 
                     <h2>Create new task</h2>
@@ -48,9 +52,24 @@
                                 <form action="{{ route('task.update', $task->id) }}" method="post" class="form mr-1">
                                     @csrf
                                     @method('patch')
-                                    <input name="is_done" value="{{ $task->is_done ? '0' : '1' }}" hidden>
+                                    <input name="position" value="{{ $task->position + 1 }}" hidden>
+                                    <button type="submit" class="btn btn-lg btn-dark" {{ $task->position == count($list->todoTasks) ? 'disabled' : '' }}>&uarr;</button>
+                                </form>
+
+                                <form action="{{ route('task.update', $task->id) }}" method="post" class="form mr-1">
+                                    @csrf
+                                    @method('patch')
+                                    <input name="position" value="{{ $task->position - 1 }}" hidden>
+                                    <button type="submit" class="btn btn-lg btn-dark" {{ $task->position == 1 ? 'disabled' : '' }}>&darr;</button>
+                                </form>
+
+                                <form action="{{ route('task.update', $task->id) }}" method="post" class="form mr-1">
+                                    @csrf
+                                    @method('patch')
+                                    <input name="is_done" value="{{ $task->is_done ? 0 : 1 }}" hidden>
                                     <button type="submit" class="btn btn-lg btn-success">&#10003;</button>
                                 </form>
+
                                 <form action="{{ route('task.destroy', $task->id) }}" method="post" class="form">
                                     @csrf
                                     @method('delete')
