@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-12 col-xl-10">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <p>Tasks from "{{ $list->title }}" list</p>
+                    <h4>Tasks from "{{ $list->title }}" list</h4>
                     <a href="{{ route('list.index') }}">Back to Lists</a>
                 </div>
 
@@ -26,7 +26,7 @@
                         @csrf
                         <div class="form-row align-items-center">
                             <div class="col-6">
-                                <input type="text" class="form-control mb-2" name="title" placeholder="New list" value="{{ old('title') }}">
+                                <input type="text" class="form-control mb-2" name="title" placeholder="New task" value="{{ old('title') }}">
                                 @error('title')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror

@@ -3,9 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-12 col-lg-8">
             <div class="card">
-                <div class="card-header">Todo Lists</div>
+                <div class="card-header">
+                    <h4>Todo Lists</h4>
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))
